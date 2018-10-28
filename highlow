@@ -1,0 +1,71 @@
+#!/bin/bash
+
+##############################################################
+#Ryan Whittingham
+#CSE 224
+#October 4, 2018
+#Programming Assignment 3
+#############################################################
+
+###############  Program  Description  ########################
+#Highlow is a game where the CPU has to guess a number the user has choosen.
+################################################################  
+
+floor=0
+ceiling=100
+response="x"
+count=0
+echo
+echo "Welcome to HighLow"
+echo
+echo "Think of a number between $floor and $ceiling."
+echo "Press any key when you have it."
+read -n 1
+echo
+echo
+while [[ $response != c ]]
+do
+	if [[ $floor -gt $ceiling ]]
+	then
+		echo "You must of switched your number."
+		echo "Goodbye."
+		echo
+		exit
+	else
+		count=$((count+1))
+		guess=$((($floor+$ceiling)/2))
+
+		echo "Is your number $guess?"
+		echo
+		echo "Press h if that's too high."
+		echo "Press l if that's too low."
+		echo "Press c if it is your number."
+
+		read -n 1 response
+		echo
+		echo
+
+		if [[ $response == l ]]
+		then
+			echo "Too low you say."
+			echo
+			floor=$((guess+1))
+		
+		elif [[ $response == h ]]
+		then
+			echo "Too high you say."
+			echo
+			ceiling=$((guess-1))
+	
+		elif [[ $response == c ]]
+		then
+			echo "Correct you say."
+			echo "It took the CPU $count times to guess your number."
+		
+		fi
+		
+	fi
+done
+echo "Goodbye."
+echo
+exit
