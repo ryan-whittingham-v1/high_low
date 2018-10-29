@@ -23,7 +23,7 @@ echo "Press any key when you have it."
 read -n 1
 echo
 echo
-while [[ $response != c ]]
+while [[ "$response" != "c" ]]
 do
 	if [[ $floor -gt $ceiling ]]
 	then
@@ -34,35 +34,38 @@ do
 	else
 		count=$((count+1))
 		guess=$((($floor+$ceiling)/2))
-
+		response="x"
 		echo "Is your number $guess?"
 		echo
-		echo "Press h if that's too high."
-		echo "Press l if that's too low."
-		echo "Press c if it is your number."
+			echo "Press h if that's too high."
+			echo "Press l if that's too low."
+			echo "Press c if that's your number."
+			read -n 1 response
+			echo "Response = $response"
+			echo
 
-		read -n 1 response
-		echo
-		echo
-
-		if [[ $response == l ]]
+		if [[ "$response" == "l" ]]
 		then
 			echo "Too low you say."
 			echo
 			floor=$((guess+1))
 		
-		elif [[ $response == h ]]
+		elif [[ "$response" == "h" ]]
 		then
 			echo "Too high you say."
 			echo
 			ceiling=$((guess-1))
 	
-		elif [[ $response == c ]]
+		elif [[ "$response" == "c" ]]
 		then
 			echo "Correct you say."
 			echo "It took the CPU $count times to guess your number."
 		
-		fi
+		else
+			echo "Invalid response."
+			echo "Please try again."
+			echo
+		fi	
 		
 	fi
 done
