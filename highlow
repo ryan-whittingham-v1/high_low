@@ -12,11 +12,17 @@
 ################################################################  
 
 floor=0
-ceiling=100
+ceiling=$1
 response="x"
 count=0
 echo
 echo "Welcome to HighLow"
+
+if [[ "$ceiling" == "" ]]
+then
+	ceiling=100
+fi
+
 echo
 echo "Think of a number between $floor and $ceiling."
 echo "Press any key when you have it."
@@ -27,7 +33,8 @@ while [[ "$response" != "c" ]]
 do
 	if [[ $floor -gt $ceiling ]]
 	then
-		echo "You must of switched your number."
+		echo "If $guess isn't your number, then you must have switched your number."
+		echo "That's against the rules."
 		echo "Goodbye."
 		echo
 		exit
@@ -40,8 +47,9 @@ do
 			echo "Press h if that's too high."
 			echo "Press l if that's too low."
 			echo "Press c if that's your number."
+			echo
 			read -n 1 response
-			echo "Response = $response"
+			echo
 			echo
 
 		if [[ "$response" == "l" ]]
@@ -58,10 +66,11 @@ do
 	
 		elif [[ "$response" == "c" ]]
 		then
-			echo "Correct you say."
+			echo "Correct you say!"
 			echo "It took the CPU $count times to guess your number."
-		
+			echo
 		else
+			echo
 			echo "Invalid response."
 			echo "Please try again."
 			echo
