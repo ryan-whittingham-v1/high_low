@@ -3,81 +3,109 @@
 ##############################################################
 #Ryan Whittingham
 #CSE 224
-#October 4, 2018
+#November 1, 2018
 #Programming Assignment 3
 #############################################################
 
 ###############  Program  Description  ########################
-#Highlow is a game where the CPU has to guess a number the user has choosen.
+#Highlow is a game where the computer tries to guess the users 
+#number in as few tries as possible.
 ################################################################  
 
-floor=0
-ceiling=$1
-response="x"
-count=0
-echo
-echo "Welcome to HighLow"
+floor=1  #lowest possible guess
+ceiling=$1 #highest possible guess
+response="x" #user's response to guess 
+count=0 #total guesses
 
+############### No command line argument given #############
 if [[ "$ceiling" == "" ]]
 then
 	ceiling=100
 fi
+###############################################################
 
+###################  Greeting  ################################
+echo "------------------"
+echo "Welcome to HighLow"
+echo "------------------"
+echo "Let's see how fast the computer can guess a number."
 echo
 echo "Think of a number between $floor and $ceiling."
 echo "Press any key when you have it."
-read -n 1
+read -n 1 #read one character and continue
 echo
 echo
+###################  Gameplay  #################################
 while [[ "$response" != "c" ]]
 do
+	################  cheat detection  ####################
 	if [[ $floor -gt $ceiling ]]
 	then
-		echo "If $guess isn't your number, then you must have switched your number."
-		echo "That's against the rules."
+		echo "----------------------------"
+		echo "Are you sure that wasn't it?"
+		echo "----------------------------" 
+		echo "If $guess isn't your number, you must have changed your number in the middle of the game."
+		echo
+		echo "Unfortunately that's cheating."
+		echo
 		echo "Goodbye."
 		echo
 		exit
+	#####################################################
+	
 	else
-		count=$((count+1))
+	
+	################  CPU Guess  ##########################
 		guess=$((($floor+$ceiling)/2))
 		response="x"
+		echo "----------------------"
 		echo "Is your number $guess?"
+		echo "----------------------"
+		echo "Press h if that's too high."
+		echo "Press l if that's too low."
+		echo "Press c if that's your number."
 		echo
-			echo "Press h if that's too high."
-			echo "Press l if that's too low."
-			echo "Press c if that's your number."
-			echo
-			read -n 1 response
-			echo
-			echo
-
-		if [[ "$response" == "l" ]]
-		then
-			echo "Too low you say."
-			echo
-			floor=$((guess+1))
-		
-		elif [[ "$response" == "h" ]]
-		then
-			echo "Too high you say."
-			echo
-			ceiling=$((guess-1))
+	######################################################
 	
-		elif [[ "$response" == "c" ]]
+	###############  User response  ########################	
+		read -n 1 response #read one character and continue
+		echo
+		echo
+	###########################################################
+
+	##############  evaluate response  ########################  
+		if [[ "$response" == "l" ]] #guess too low
 		then
-			echo "Correct you say!"
-			echo "It took the CPU $count times to guess your number."
+			floor=$((guess+1))
+			count=$((count+1))
+		
+		elif [[ "$response" == "h" ]] #guess too high
+		then
+			ceiling=$((guess-1))
+			count=$((count+1))
+	
+		elif [[ "$response" == "c" ]] #guess correct
+		then
+			count=$((count+1))
+			echo "--------"
+			echo "Hot dog!"
+			echo "--------"
+			echo "It took the computer $count times to guess your number."
 			echo
 		else
 			echo
-			echo "Invalid response."
+			echo "Invalid response." #not l, h, or c
 			echo "Please try again."
 			echo
 		fi	
-		
 	fi
+	#############################################################
 done
+
+######################################################################
+
+echo "Thank you for playing."
+echo
 echo "Goodbye."
 echo
 exit
