@@ -6,7 +6,7 @@
 
 ## Description
 
-_ Highlow is a game where the computer tries to guess the users number in as few tries as possible._
+_Highlow is a game where the computer tries to guess the users number in as few tries as possible._
 
 ## Setup/Installation Requirements
 
