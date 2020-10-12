@@ -14,7 +14,7 @@ _Highlow is a game where the computer tries to guess the user's number in as few
 
 ## Technologies Used
 
-_Bashs script_
+_Bash script_
 
 ### License
 
